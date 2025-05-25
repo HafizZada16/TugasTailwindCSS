@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Selamat Datang di Kelas Online Interaktif</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .hero-gradient {
+      background: linear-gradient(90deg, #3b82f6 0%, #1e40af 100%);
+    }
+    .btn-primary-custom {
+      background-color: #2563eb; /* Tailwind blue-600 */
+    }
+    .btn-primary-custom:hover {
+      background-color: #1d4ed8; /* Tailwind blue-700 */
+    }
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    /* Untuk dropdown agar terlihat di atas konten lain */
+    .group:hover .group-hover\:block {
+        display: block;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+
+  <nav class="bg-blue-600 shadow-lg fixed w-full z-30 top-0">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex-shrink-0">
+          <a href="#" class="text-2xl font-bold text-white">
+            <i class="fas fa-graduation-cap mr-2"></i>Kelas Online
+          </a>
+        </div>
+
+        <div class="hidden md:flex md:items-center md:space-x-6">
+          <a class="text-gray-200 hover:text-white font-medium px-3 py-2 rounded-md" href="#">Beranda</a>
+          
+          <div class="relative group">
+            <button class="text-gray-200 hover:text-white font-medium flex items-center px-3 py-2 rounded-md">
+              Materi <i class="fas fa-chevron-down ml-1 text-xs"></i>
+            </button>
+            <div class="absolute left-0 top-full w-64 bg-white rounded-md shadow-lg py-2 z-20 hidden group-hover:block ring-1 ring-black ring-opacity-5">
+              <a href="siswa/materi.html" class="block px-4 py-3 hover:bg-gray-100">
+                <div class="flex items-center">
+                  <img src="https://media.istockphoto.com/id/1269824697/id/vektor/ikon-akuntansi-tanda-perhitungan-vektor-glyph-terisolasi-pada-latar-belakang-putih.jpg?s=612x612&w=0&k=20&c=WcPZUTGeB9NACUcPfQCTfieT7FUaxcBpVGXIqS_ehVY="
+                       alt="Matematika Icon" class="w-8 h-8 object-contain mr-3 rounded">
+                  <div>
+                    <h6 class="text-sm font-semibold text-gray-800">Matematika</h6>
+                    <small class="text-xs text-gray-500">Bilangan, Aljabar, Geometri</small>
+                  </div>
+                </div>
+              </a>
+              <hr class="border-gray-200 my-1">
+              <a href="siswa/materi.html" class="block px-4 py-3 hover:bg-gray-100">
+                <div class="flex items-center">
+                  <img src="https://cdn.pixabay.com/photo/2016/06/22/08/40/atom-1472657_1280.png"
+                       alt="Sains Icon" class="w-8 h-8 object-contain mr-3 rounded">
+                  <div>
+                    <h6 class="text-sm font-semibold text-gray-800">Sains (IPA)</h6>
+                    <small class="text-xs text-gray-500">Fisika, Biologi, Kimia</small>
+                  </div>
+                </div>
+              </a>
+              <hr class="border-gray-200 my-1">
+              <a href="siswa/materi.html" class="block px-4 py-3 hover:bg-gray-100">
+                <div class="flex items-center">
+                  <img src="https://media.istockphoto.com/id/1459600396/id/vektor/logo-bahasa-logo-terjemahan-penerjemah-vektor.jpg?s=1024x1024&w=is&k=20&c=d0BwhTP6NChk2GCX6DJjSOuVI-CxIehMxsF0XTsYg8Y="
+                       alt="Bahasa Icon" class="w-8 h-8 object-contain mr-3 rounded">
+                  <div>
+                    <h6 class="text-sm font-semibold text-gray-800">Bahasa</h6>
+                    <small class="text-xs text-gray-500">Indonesia, Inggris</small>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <a class="text-gray-200 hover:text-white font-medium px-3 py-2 rounded-md" href="#features">Fitur</a>
+        </div>
+
+        <div class="hidden md:block">
+            <a href="login.html" class="bg-white text-blue-600 font-semibold py-2 px-4 rounded-lg shadow hover:bg-gray-200 transition duration-300 text-sm">
+                <i class="fas fa-sign-in-alt mr-1"></i> Masuk
+            </a>
+        </div>
+
+        <div class="md:hidden flex items-center">
+          <a href="login.html" class="bg-white text-blue-600 font-semibold py-1 px-3 rounded-lg shadow hover:bg-gray-200 transition duration-300 text-xs mr-2">
+                <i class="fas fa-sign-in-alt"></i>
+          </a>
+          <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+            <span class="sr-only">Buka menu utama</span>
+            <i class="fas fa-bars text-xl"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="md:hidden hidden" id="mobile-menu">
+      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <a href="#" class="text-gray-200 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Beranda</a>
+        <div class="relative group">
+            <button class="w-full text-left text-gray-200 hover:bg-blue-700 hover:text-white flex items-center justify-between px-3 py-2 rounded-md text-base font-medium" onclick="toggleMobileDropdown(event)">
+              Materi <i class="fas fa-chevron-down ml-1 text-xs"></i>
+            </button>
+            <div class="mt-1 w-full bg-blue-500 rounded-md shadow-lg py-1 z-20 hidden ring-1 ring-black ring-opacity-5 mobile-dropdown-menu">
+              <a href="siswa/materi.html" class="block px-3 py-2 text-sm text-gray-100 hover:bg-blue-600 hover:text-white">Matematika</a>
+              <a href="siswa/materi.html" class="block px-3 py-2 text-sm text-gray-100 hover:bg-blue-600 hover:text-white">Sains (IPA)</a>
+              <a href="siswa/materi.html" class="block px-3 py-2 text-sm text-gray-100 hover:bg-blue-600 hover:text-white">Bahasa</a>
+            </div>
+        </div>
+        <a href="siswa/kuis.html" class="text-gray-200 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Kuis</a>
+        <a href="siswa/nilai.html" class="text-gray-200 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Nilai</a>
+        <a href="#features" class="text-gray-200 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Fitur</a>
+      </div>
+      <div class="pt-2 pb-3 px-2 border-t border-blue-700">
+        <a href="login.html" class="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-blue-700 bg-white hover:bg-gray-50">
+          Masuk
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero-gradient text-white pt-32 pb-16 md:pt-40 md:pb-24">
+    <div class="container mx-auto px-6 text-center">
+      <img src="https://w7.pngwing.com/pngs/310/448/png-transparent-study-skills-education-learning-computer-icons-sc-logo-angle-hat-teacher.png" alt="Ilustrasi Belajar Online" class="w-32 h-32 md:w-40 md:h-40 mx-auto mb-6 rounded-full shadow-xl border-4 border-white" />
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+        Capai Potensi Maksimalmu Bersama <span class="block md:inline">Kelas Online Interaktif!</span>
+      </h1>
+      <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+        Platform belajar modern yang menyediakan materi lengkap, kuis menantang, dan kemudahan akses untuk semua level.
+      </p>
+      <div>
+        <a href="#features" class="bg-yellow-400 text-gray-900 font-bold py-3 px-8 rounded-lg text-lg hover:bg-yellow-500 transition duration-300 shadow-md mr-0 md:mr-4 mb-4 md:mb-0">
+          <i class="fas fa-rocket mr-2"></i> Mulai Petualangan Belajar
+        </a>
+        <a href="login.html" class="bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-white hover:text-blue-700 transition duration-300 shadow-md">
+          <i class="fas fa-user-plus mr-2"></i> Gabung Sekarang
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <section id="features" class="py-16 md:py-20 bg-white">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-2">
+        Kenapa Memilih Kami?
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-xl mx-auto">
+        Kami menyediakan berbagai fitur unggulan untuk mendukung proses belajar Anda menjadi lebih efektif dan menyenangkan.
+      </p>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-gray-50 p-8 rounded-xl shadow-lg card-hover transition duration-300">
+          <div class="text-blue-600 text-4xl mb-4 text-center">
+            <i class="fas fa-book-open"></i>
+          </div>
+          <h3 class="text-2xl font-semibold text-gray-900 mb-3 text-center">Materi Terstruktur</h3>
+          <p class="text-gray-700 text-center">
+            Akses ribuan materi pelajaran yang disusun secara sistematis dan mudah dipahami, kapan saja dan di mana saja.
+          </p>
+        </div>
+        <div class="bg-gray-50 p-8 rounded-xl shadow-lg card-hover transition duration-300">
+          <div class="text-green-500 text-4xl mb-4 text-center">
+            <i class="fas fa-puzzle-piece"></i>
+          </div>
+          <h3 class="text-2xl font-semibold text-gray-900 mb-3 text-center">Kuis Interaktif</h3>
+          <p class="text-gray-700 text-center">
+            Uji pemahamanmu dengan kuis yang dirancang menarik dan menantang, lengkap dengan feedback instan.
+          </p>
+        </div>
+        <div class="bg-gray-50 p-8 rounded-xl shadow-lg card-hover transition duration-300">
+          <div class="text-purple-500 text-4xl mb-4 text-center">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3 class="text-2xl font-semibold text-gray-900 mb-3 text-center">Pantau Kemajuan</h3>
+          <p class="text-gray-700 text-center">
+            Lihat perkembangan belajarmu melalui dasbor nilai yang informatif dan mudah diakses.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-20 bg-blue-700 text-white">
+    <div class="container mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6">Siap Mengubah Cara Belajarmu?</h2>
+      <p class="text-lg md:text-xl mb-8 max-w-xl mx-auto">
+        Jangan tunda lagi! Daftarkan dirimu dan nikmati pengalaman belajar yang belum pernah kamu rasakan sebelumnya.
+      </p>
+      <a href="register.html" class="bg-yellow-400 text-gray-900 font-bold py-4 px-10 rounded-lg text-xl hover:bg-yellow-500 transition duration-300 shadow-xl">
+        <i class="fas fa-edit mr-2"></i> Daftar Gratis
+      </a>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-20 bg-gray-100">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Apa Kata Mereka?</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <p class="text-gray-700 italic mb-4">"Kelas Online ini sangat membantu saya memahami materi sulit dengan mudah. Fitur kuisnya juga seru!"</p>
+          <div class="flex items-center">
+            <img src="https://via.placeholder.com/50/EF4444/FFFFFF?Text=BS" alt="Foto Siswa" class="w-12 h-12 rounded-full mr-4" />
+            <div>
+              <p class="font-semibold text-gray-900">Budi S.</p>
+              <p class="text-sm text-gray-600">Siswa Kelas XII</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <p class="text-gray-700 italic mb-4">"Sebagai guru, platform ini memudahkan saya dalam menyampaikan materi dan mengelola kelas. Sangat direkomendasikan!"</p>
+          <div class="flex items-center">
+            <img src="https://via.placeholder.com/50/10B981/FFFFFF?Text=AW" alt="Foto Guru" class="w-12 h-12 rounded-full mr-4" />
+            <div>
+              <p class="font-semibold text-gray-900">Ibu Ani W.</p>
+              <p class="text-sm text-gray-600">Guru Matematika</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto px-6 text-center">
+      <div class="mb-4">
+        <a href="#" class="text-gray-400 hover:text-white mx-2"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="text-gray-400 hover:text-white mx-2"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="text-gray-400 hover:text-white mx-2"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="text-gray-400 hover:text-white mx-2"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+      <p class="text-gray-400">&copy; 2025 Kelas Online. Hak Cipta Dilindungi.</p>
+      <p class="text-sm text-gray-500">Dirancang dengan <i class="fas fa-heart text-red-500"></i> oleh Tim Kreatif Anda</p>
+    </div>
+  </footer>
+
+  <script>
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      // Ganti ikon hamburger dengan silang jika diperlukan
+      const icon = mobileMenuButton.querySelector('i');
+      if (icon.classList.contains('fa-bars')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    });
+
+    function toggleMobileDropdown(event) {
+        event.preventDefault(); // Mencegah navigasi jika ini adalah link
+        const dropdownMenu = event.currentTarget.nextElementSibling;
+        dropdownMenu.classList.toggle('hidden');
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kelola Materi - Kelas Online</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+  <nav class="bg-blue-600 shadow-lg">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex-shrink-0">
+          <a href="../index.html" class="text-2xl font-bold text-white">
+            <i class="fas fa-graduation-cap mr-2"></i>Kelas Online
+          </a>
+        </div>
+        <div class="hidden md:flex md:items-center md:space-x-6">
+            <a href="../guru.html" class="text-gray-200 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Dasbor Guru</a>
+            <a href="input-materi.html" class="text-gray-200 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Input Materi</a>
+            <a href="kelola-kelas.html" class="text-gray-200 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Kelola Kelas</a>
+        </div>
+        <div class="hidden md:block">
+            <button id="logoutBtnDesktop" class="bg-white text-blue-600 font-semibold py-2 px-4 rounded-lg shadow hover:bg-gray-200 transition duration-300 text-sm">
+                <i class="fas fa-sign-out-alt mr-1"></i> Keluar
+            </button>
+        </div>
+         <div class="md:hidden flex items-center">
+          <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white hover:bg-blue-700 focus:outline-none">
+            <span class="sr-only">Buka menu</span><i class="fas fa-bars text-xl"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+     <div class="md:hidden hidden" id="mobile-menu">
+      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <a href="../guru.html" class="text-gray-200 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Dasbor Guru</a>
+        <a href="input-materi.html" class="text-gray-200 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Input Materi</a>
+        <a href="kelola-materi.html" class="text-yellow-300 bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Kelola Materi</a>
+        <a href="kelola-kelas.html" class="text-gray-200 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Kelola Kelas</a>
+      </div>
+      <div class="pt-2 pb-3 px-2 border-t border-blue-700">
+        <button id="logoutBtnMobile" class="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-blue-700 bg-white hover:bg-gray-50">
+          Keluar
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container mx-auto px-4 py-12 md:py-16 flex-grow">
+    <div class="flex justify-between items-center mb-8">
+        <h2 class="text-2xl md:text-3xl font-bold text-blue-700">Kelola Materi Pembelajaran</h2>
+        <a href="input-materi.html" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+            <i class="fas fa-plus-circle mr-2"></i> Tambah Materi Baru
+        </a>
+    </div>
+
+    <div id="materialsListContainer" class="bg-white p-6 md:p-8 rounded-xl shadow-2xl">
+        {/* */}
+    </div>
+  </main>
+
+  <footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto px-6 text-center">
+      <p class="text-gray-400">&copy; <span id="currentYearFooter"></span> Kelas Online. Hak Cipta Dilindungi.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('currentYearFooter').textContent = new Date().getFullYear();
+
+    function protectPage(role) {
+      console.log("Attempting to protect page for role:", role);
+      const currentUserRole = sessionStorage.getItem('userRole');
+      const currentUsername = sessionStorage.getItem('username');
+      if (!currentUsername || currentUserRole !== role) {
+        // window.location.href = "../login.html";
+      }
+    }
+
+    function setupLogout() {
+      const btnDesktop = document.getElementById("logoutBtnDesktop");
+      const btnMobile = document.getElementById("logoutBtnMobile");
+      const clearSessionAndRedirect = () => {
+        sessionStorage.clear();
+        window.location.href = "../login.html";
+      };
+      if (btnDesktop) btnDesktop.addEventListener("click", clearSessionAndRedirect);
+      if (btnMobile) btnMobile.addEventListener("click", clearSessionAndRedirect);
+    }
+
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if(mobileMenuButton && mobileMenu){
+        mobileMenuButton.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+          const icon = mobileMenuButton.querySelector('i');
+          icon.classList.toggle('fa-bars');
+          icon.classList.toggle('fa-times');
+        });
+    }
+
+    function loadMaterials() {
+        const container = document.getElementById('materialsListContainer');
+        if (!container) return;
+
+        let materials = [];
+        try {
+            const storedMaterials = localStorage.getItem('learningMaterials');
+            if (storedMaterials) {
+                materials = JSON.parse(storedMaterials);
+            }
+        } catch (e) {
+            console.error("Error parsing materials from localStorage:", e);
+            container.innerHTML = '<p class="text-red-500">Gagal memuat materi.</p>';
+            return;
+        }
+
+        if (materials.length === 0) {
+            container.innerHTML = `
+                <div class="text-center py-10">
+                    <i class="fas fa-folder-open text-5xl text-gray-400 mb-4"></i>
+                    <p class="text-gray-600 text-lg">Belum ada materi yang ditambahkan.</p>
+                    <p class="text-gray-500 text-sm">Silakan tambahkan materi baru melalui tombol di atas.</p>
+                </div>
+            `;
+            return;
+        }
+
+        // Menggunakan tabel untuk tampilan yang lebih terstruktur
+        let tableHtml = `
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID Materi</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Judul Materi</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+        `;
+
+        materials.forEach(material => {
+            tableHtml += `
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${material.id}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${material.title}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                        <button onclick="editMaterial('${material.id}')" class="text-indigo-600 hover:text-indigo-900" title="Edit">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button onclick="deleteMaterial('${material.id}')" class="text-red-600 hover:text-red-900" title="Hapus">
+                            <i class="fas fa-trash"></i> Hapus
+                        </button>
+                    </td>
+                </tr>
+            `;
+        });
+
+        tableHtml += `
+                    </tbody>
+                </table>
+            </div>
+        `;
+        container.innerHTML = tableHtml;
+    }
+
+    function editMaterial(materialId) {
+        // Simpan ID materi yang akan diedit di sessionStorage agar bisa diambil oleh halaman edit
+        sessionStorage.setItem('editMaterialId', materialId);
+        window.location.href = 'edit-materi.html';
+    }
+
+    function deleteMaterial(materialId) {
+        if (confirm(`Apakah Anda yakin ingin menghapus materi dengan ID "${materialId}"?`)) {
+            try {
+                let materials = JSON.parse(localStorage.getItem('learningMaterials')) || [];
+                materials = materials.filter(material => material.id !== materialId);
+                localStorage.setItem('learningMaterials', JSON.stringify(materials));
+                loadMaterials(); // Muat ulang daftar setelah menghapus
+                alert('Materi berhasil dihapus.');
+            } catch (e) {
+                console.error("Error deleting material:", e);
+                alert('Gagal menghapus materi.');
+            }
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof protectPage === "function") {
+         protectPage("guru");
+      } else { console.warn("protectPage function not defined."); }
+      if (typeof setupLogout === "function") {
+        setupLogout();
+      } else { console.warn("setupLogout function not defined."); }
+      
+      loadMaterials();
+    });
+  </script>
+</body>
+</html>

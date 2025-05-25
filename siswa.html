@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu Siswa - Kelas Online</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+  <nav class="bg-blue-600 shadow-lg">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex-shrink-0">
+          <a href="index.html" class="text-2xl font-bold text-white">
+            <i class="fas fa-graduation-cap mr-2"></i>Kelas Online
+          </a>
+        </div>
+        <div class="hidden md:block">
+            <button id="logoutBtnDesktop" class="bg-white text-blue-600 font-semibold py-2 px-4 rounded-lg shadow hover:bg-gray-200 transition duration-300 text-sm">
+                <i class="fas fa-sign-out-alt mr-1"></i> Keluar
+            </button>
+        </div>
+        <div class="md:hidden flex items-center">
+          <button id="logoutBtnMobile" class="bg-white text-blue-600 font-semibold py-1 px-3 rounded-lg shadow hover:bg-gray-200 transition duration-300 text-xs">
+            <i class="fas fa-sign-out-alt"></i> Keluar
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container mx-auto px-4 py-12 md:py-16 flex-grow">
+    <h2 class="text-3xl font-bold text-gray-800 mb-3">Halo, <span id="studentName">Siswa</span>!</h2>
+    <p class="text-gray-600 mb-10">Selamat datang di dasbor Kelas Online Anda. Pilih salah satu menu di bawah untuk memulai.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center card-hover transition duration-300">
+        <div class="text-blue-500 text-5xl mb-4">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Lihat Materi</h3>
+        <p class="text-gray-600 mb-4 text-sm">Pelajari materi yang telah disediakan guru untuk meningkatkan pemahamanmu.</p>
+        <a href="siswa/materi.html" class="mt-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition duration-150 ease-in-out">
+          Buka Materi
+        </a>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center card-hover transition duration-300">
+        <div class="text-green-500 text-5xl mb-4">
+          <i class="fas fa-puzzle-piece"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Kerjakan Kuis</h3>
+        <p class="text-gray-600 mb-4 text-sm">Uji kemampuan dan pemahamanmu melalui kuis interaktif yang menantang.</p>
+        <a href="siswa/kuis.html" class="mt-auto bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition duration-150 ease-in-out">
+          Mulai Kuis
+        </a>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center card-hover transition duration-300">
+        <div class="text-purple-500 text-5xl mb-4">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Lihat Nilai</h3>
+        <p class="text-gray-600 mb-4 text-sm">Cek hasil dan perkembangan belajarmu dari kuis dan tugas yang telah dikerjakan.</p>
+        <a href="siswa/nilai.html" class="mt-auto bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition duration-150 ease-in-out">
+          Cek Nilai
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto px-6 text-center">
+      <p class="text-gray-400">&copy; 2025 Kelas Online. Hak Cipta Dilindungi.</p>
+    </div>
+  </footer>
+
+  <script>
+    function protectPage(role) {
+      console.log("Attempting to protect page for role:", role);
+      const currentUserRole = sessionStorage.getItem('userRole');
+      const currentUsername = sessionStorage.getItem('username');
+
+      if (!currentUsername || currentUserRole !== role) {
+        // alert("Anda tidak memiliki akses ke halaman ini atau sesi Anda telah berakhir. Silakan login kembali.");
+        // window.location.href = "login.html"; // Assumes login.html is in the same directory as siswa.html
+      }
+    }
+
+    function setupLogout() {
+      const btnDesktop = document.getElementById("logoutBtnDesktop");
+      const btnMobile = document.getElementById("logoutBtnMobile");
+      const clearSessionAndRedirect = () => {
+        sessionStorage.clear();
+        window.location.href = "login.html"; // Assumes login.html is in the same directory
+      };
+      if (btnDesktop) btnDesktop.addEventListener("click", clearSessionAndRedirect);
+      if (btnMobile) btnMobile.addEventListener("click", clearSessionAndRedirect);
+    }
+
+    function displayStudentName() {
+      const studentNameElement = document.getElementById("studentName");
+      const currentUsername = sessionStorage.getItem('username');
+      if (studentNameElement && currentUsername) {
+        studentNameElement.textContent = currentUsername;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      displayStudentName();
+      setupLogout();
+
+      if (typeof protectPage === "function") {
+         protectPage("siswa");
+      } else {
+        console.warn("protectPage function not defined. Page may not be secure.");
+        // const currentUsername = sessionStorage.getItem('username');
+        // if (!currentUsername) {
+        //    window.location.href = "login.html";
+        // }
+      }
+    });
+  </script>
+</body>
+</html>

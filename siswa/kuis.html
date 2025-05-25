@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kuis Interaktif - Kelas Online</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    /* Custom styles untuk feedback kuis */
+    .feedback-correct {
+      background-color: #dcfce7; /* Tailwind green-100 */
+      color: #166534; /* Tailwind green-800 */
+      border-left-width: 4px;
+      border-left-color: #22c55e; /* Tailwind green-500 */
+    }
+    .feedback-incorrect {
+      background-color: #fee2e2; /* Tailwind red-100 */
+      color: #991b1b; /* Tailwind red-800 */
+      border-left-width: 4px;
+      border-left-color: #ef4444; /* Tailwind red-500 */
+    }
+    .group:hover .group-hover\:block {
+        display: block;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+
+  <nav class="bg-blue-600 shadow-lg fixed w-full z-30 top-0">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex-shrink-0">
+          <a href="../index.html" class="text-2xl font-bold text-white">
+            <i class="fas fa-graduation-cap mr-2"></i>Kelas Online
+          </a>
+        </div>
+        <div class="hidden md:flex md:items-center md:space-x-6">
+          <a class="text-gray-200 hover:text-white font-medium px-3 py-2 rounded-md" href="../index.html#">Beranda</a>
+          <div class="relative group">
+            <button class="text-gray-200 hover:text-white font-medium flex items-center px-3 py-2 rounded-md">
+              Materi <i class="fas fa-chevron-down ml-1 text-xs"></i>
+            </button>
+            <div class="absolute left-0 mt-1 w-64 bg-white rounded-md shadow-lg py-2 z-20 hidden group-hover:block ring-1 ring-black ring-opacity-5">
+              <a href="materi.html" class="block px-4 py-3 hover:bg-gray-100">
+                <div class="flex items-center">
+                  <img src="https://media.istockphoto.com/id/1269824697/id/vektor/ikon-akuntansi-tanda-perhitungan-vektor-glyph-terisolasi-pada-latar-belakang-putih.jpg?s=612x612&w=0&k=20&c=WcPZUTGeB9NACUcPfQCTfieT7FUaxcBpVGXIqS_ehVY="
+                       alt="Matematika Icon" class="w-8 h-8 object-contain mr-3 rounded">
+                  <div><h6 class="text-sm font-semibold text-gray-800">Matematika</h6><small class="text-xs text-gray-500">Bilangan, Aljabar</small></div>
+                </div>
+              </a>
+              </div>
+          </div>
+          <a class="text-yellow-300 hover:text-white font-medium px-3 py-2 rounded-md" href="kuis.html">Kuis</a>
+          <a class="text-gray-200 hover:text-white font-medium px-3 py-2 rounded-md" href="nilai.html">Nilai</a>
+        </div>
+        <div class="hidden md:block">
+            <button id="logoutBtnDesktop" class="bg-white text-blue-600 font-semibold py-2 px-4 rounded-lg shadow hover:bg-gray-200 transition duration-300 text-sm">
+                <i class="fas fa-sign-out-alt mr-1"></i> Keluar
+            </button>
+        </div>
+        <div class="md:hidden flex items-center">
+          <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white hover:bg-blue-700 focus:outline-none">
+            <span class="sr-only">Buka menu</span><i class="fas fa-bars text-xl"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="md:hidden hidden" id="mobile-menu">
+      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <a href="../index.html" class="text-gray-200 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Beranda</a>
+        <a href="materi.html" class="text-gray-200 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Materi</a>
+        <a href="kuis.html" class="text-yellow-300 bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Kuis</a>
+        <a href="nilai.html" class="text-gray-200 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Nilai</a>
+      </div>
+      <div class="pt-2 pb-3 px-2 border-t border-blue-700">
+        <button id="logoutBtnMobile" class="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-blue-700 bg-white hover:bg-gray-50">
+          Keluar
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mx-auto px-4 py-24 md:py-32">
+    <div class="max-w-3xl mx-auto bg-white p-6 md:p-8 rounded-xl shadow-2xl">
+      <h2 class="text-3xl font-bold text-center text-blue-700 mb-8">Kuis Matematika - Bilangan Bulat</h2>
+
+      <form id="quizForm">
+        <div class="mb-8 p-5 border border-gray-200 rounded-lg shadow-sm">
+          <p class="text-lg font-semibold text-gray-800 mb-3">1. Hasil dari (-15) + 7 adalah...</p>
+          <div class="space-y-2">
+            <label class="flex items-center p-3 bg-gray-50 hover:bg-gray-100 rounded-md cursor-pointer">
+              <input type="radio" name="q1" value="a" class="form-radio h-5 w-5 text-blue-600">
+              <span class="ml-3 text-gray-700">-22</span>
+            </label>
+            <label class="flex items-center p-3 bg-gray-50 hover:bg-gray-100 rounded-md cursor-pointer">
+              <input type="radio" name="q1" value="b" class="form-radio h-5 w-5 text-blue-600">
+              <span class="ml-3 text-gray-700">-8</span>
+            </label>
+            <label class="flex items-center p-3 bg-gray-50 hover:bg-gray-100 rounded-md cursor-pointer">
+              <input type="radio" name="q1" value="c" class="form-radio h-5 w-5 text-blue-600">
+              <span class="ml-3 text-gray-700">8</span>
+            </label>
+          </div>
+          <div id="fb1" class="mt-3 p-3 rounded-md text-sm hidden">Pembahasan: (-15) + 7 = -8 (tanda mengikuti bilangan lebih besar).</div>
+        </div>
+
+        <div class="mb-8 p-5 border border-gray-200 rounded-lg shadow-sm">
+          <p class="text-lg font-semibold text-gray-800 mb-3">2. Suhu udara di puncak gunung -5°C. Jika naik 8°C, suhu sekarang adalah...</p>
+          <div class="space-y-2">
+            <label class="flex items-center p-3 bg-gray-50 hover:bg-gray-100 rounded-md cursor-pointer">
+              <input type="radio" name="q2" value="a" class="form-radio h-5 w-5 text-blue-600">
+              <span class="ml-3 text-gray-700">-13°C</span>
+            </label>
+            <label class="flex items-center p-3 bg-gray-50 hover:bg-gray-100 rounded-md cursor-pointer">
+              <input type="radio" name="q2" value="b" class="form-radio h-5 w-5 text-blue-600">
+              <span class="ml-3 text-gray-700">3°C</span>
+            </label>
+            <label class="flex items-center p-3 bg-gray-50 hover:bg-gray-100 rounded-md cursor-pointer">
+              <input type="radio" name="q2" value="c" class="form-radio h-5 w-5 text-blue-600">
+              <span class="ml-3 text-gray-700">13°C</span>
+            </label>
+          </div>
+          <div id="fb2" class="mt-3 p-3 rounded-md text-sm hidden">Pembahasan: -5°C + 8°C = 3°C.</div>
+        </div>
+
+        <div class="mb-8 p-5 border border-gray-200 rounded-lg shadow-sm">
+          <p class="text-lg font-semibold text-gray-800 mb-3">3. Hasil dari (-4) × (-6) adalah...</p>
+          <input type="number" name="q3" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Masukkan jawaban">
+          <div id="fb3" class="mt-3 p-3 rounded-md text-sm hidden">Pembahasan: Perkalian dua bilangan negatif menghasilkan positif. (-4) × (-6) = 24.</div>
+        </div>
+
+        <div class="mb-8 p-5 border border-gray-200 rounded-lg shadow-sm">
+          <p class="text-lg font-semibold text-gray-800 mb-3">4. Pernyataan: "Hasil dari 10 - (-3) sama dengan 13"</p>
+          <div class="space-y-2">
+            <label class="flex items-center p-3 bg-gray-50 hover:bg-gray-100 rounded-md cursor-pointer">
+              <input type="radio" name="q4" value="true" class="form-radio h-5 w-5 text-blue-600">
+              <span class="ml-3 text-gray-700">Benar</span>
+            </label>
+            <label class="flex items-center p-3 bg-gray-50 hover:bg-gray-100 rounded-md cursor-pointer">
+              <input type="radio" name="q4" value="false" class="form-radio h-5 w-5 text-blue-600">
+              <span class="ml-3 text-gray-700">Salah</span>
+            </label>
+          </div>
+          <div id="fb4" class="mt-3 p-3 rounded-md text-sm hidden">Pembahasan: 10 - (-3) = 10 + 3 = 13. Pernyataan Benar.</div>
+        </div>
+
+        <div class="mb-8 p-5 border border-gray-200 rounded-lg shadow-sm">
+          <p class="text-lg font-semibold text-gray-800 mb-3">5. Jika a = -7 dan b = 5, maka a - b = ...</p>
+          <select name="q5" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+            <option value="" selected disabled>Pilih jawaban</option>
+            <option value="-12">-12</option>
+            <option value="-2">-2</option>
+            <option value="2">2</option>
+            <option value="12">12</option>
+          </select>
+          <div id="fb5" class="mt-3 p-3 rounded-md text-sm hidden">Pembahasan: -7 - 5 = -12.</div>
+        </div>
+
+        <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg shadow-md transition duration-150 ease-in-out">
+            <i class="fas fa-check-circle mr-2"></i>Kumpulkan Jawaban
+          </button>
+          <button type="button" id="showAnswers" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-3 px-4 rounded-lg shadow-md transition duration-150 ease-in-out">
+            <i class="fas fa-eye mr-2"></i>Lihat Pembahasan
+          </button>
+        </div>
+      </form>
+
+      <div id="result" class="mt-8 p-6 bg-blue-50 border-l-4 border-blue-500 text-blue-700 rounded-md text-center hidden">
+      </div>
+
+      <div id="backToMenu" class="mt-6 text-center hidden">
+        <a href="../siswa.html" class="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-150 ease-in-out">
+          <i class="fas fa-arrow-left mr-2"></i>Kembali ke Menu Siswa
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-gray-800 text-white py-8 mt-16">
+    <div class="container mx-auto px-6 text-center">
+      <p class="text-gray-400">&copy; 2025 Kelas Online. Hak Cipta Dilindungi.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Assume protectPage and setupLogout are defined elsewhere or in a linked script.js
+    // For demonstration, I'll include simplified versions if not present in your setup.
+    function protectPage(role) {
+      // Simplified: In a real app, this would check sessionStorage or similar
+      console.log("Page protected for role:", role);
+      // Example: if (sessionStorage.getItem('userRole') !== role) window.location.href = '../login.html';
+    }
+
+    function setupLogout() {
+      const btnDesktop = document.getElementById("logoutBtnDesktop");
+      const btnMobile = document.getElementById("logoutBtnMobile");
+      const clearSessionAndRedirect = () => {
+        sessionStorage.clear();
+        window.location.href = "../login.html"; // Arahkan ke halaman login utama
+      };
+      if (btnDesktop) btnDesktop.addEventListener("click", clearSessionAndRedirect);
+      if (btnMobile) btnMobile.addEventListener("click", clearSessionAndRedirect);
+    }
+
+    protectPage("siswa"); // Melindungi halaman ini hanya untuk siswa
+    setupLogout(); //
+
+
+    // Logika Kuis
+    document.getElementById("quizForm").addEventListener("submit", function(e) { //
+      e.preventDefault();
+      let score = 0;
+      const totalQuestions = 5;
+      const answers = {
+        q1: "b", q2: "b", q3: "24", q4: "true", q5: "-12" //
+      };
+
+      const userAnswers = {
+        q1: document.querySelector('input[name="q1"]:checked')?.value, //
+        q2: document.querySelector('input[name="q2"]:checked')?.value, //
+        q3: document.querySelector('input[name="q3"]').value.trim(), //
+        q4: document.querySelector('input[name="q4"]:checked')?.value, //
+        q5: document.querySelector('select[name="q5"]').value //
+      };
+
+      // Cek jawaban dan beri feedback per pertanyaan
+      for (let i = 1; i <= totalQuestions; i++) {
+        const questionKey = "q" + i;
+        const feedbackDiv = document.getElementById("fb" + i); //
+        feedbackDiv.classList.remove("hidden", "feedback-correct", "feedback-incorrect"); //
+
+        if (userAnswers[questionKey] === answers[questionKey]) {
+          score++;
+          feedbackDiv.classList.add("feedback-correct"); //
+        } else {
+          feedbackDiv.classList.add("feedback-incorrect"); //
+        }
+      }
+
+      // Simpan hasil kuis
+      saveQuizResult("Kuis Bilangan Bulat", score, totalQuestions); //
+
+      // Tampilkan hasil keseluruhan
+      const resultDiv = document.getElementById("result"); //
+      resultDiv.classList.remove("hidden"); //
+      resultDiv.innerHTML = `
+        <h4 class="text-2xl font-bold mb-2">Nilai Kamu: ${score}/${totalQuestions}</h4>
+        <p class="text-lg">${getFeedbackMessage(score)}</p>
+      `; //
+
+      document.getElementById("backToMenu").classList.remove("hidden"); //
+      document.getElementById("showAnswers").classList.add('hidden'); //
+      // Disable all form inputs after submission
+      document.querySelectorAll('#quizForm input, #quizForm select, #quizForm button[type="submit"]').forEach(el => el.disabled = true); //
+    });
+
+    document.getElementById("showAnswers").addEventListener("click", function() { //
+      for (let i = 1; i <= 5; i++) { 
+        const fbDiv = document.getElementById("fb" + i); //
+        if (fbDiv) {
+            fbDiv.classList.remove("hidden"); //
+        }
+      }
+    });
+
+    function getFeedbackMessage(score) { //
+      if (score === 5) return "Luar biasa! Kamu menguasai materi ini dengan sempurna! 🎉";
+      if (score >= 3) return "Bagus! Masih ada sedikit yang perlu dipelajari lagi. 💪";
+      return "Jangan menyerah! Pelajari kembali materinya dan coba lagi. 📚";
+    }
+
+    function saveQuizResult(quizName, score, maxScore) { //
+      const quizResults = JSON.parse(localStorage.getItem('quizResults')) || []; //
+      const currentUsername = sessionStorage.getItem('username'); //
+
+      if (!currentUsername) {
+        console.error("Username tidak ditemukan di session. Hasil tidak disimpan.");
+        return;
+      }
+
+      quizResults.push({
+        username: currentUsername,
+        quizName: quizName,
+        score: score,
+        maxScore: maxScore,
+        timestamp: new Date().getTime()
+      });
+      localStorage.setItem('quizResults', JSON.stringify(quizResults)); //
+      console.log("Quiz result saved for: ", currentUsername, quizName, score, maxScore);
+    }
+
+    // Mobile Menu Toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button'); //
+    const mobileMenu = document.getElementById('mobile-menu'); //
+    mobileMenuButton.addEventListener('click', () => { //
+      mobileMenu.classList.toggle('hidden'); //
+      const icon = mobileMenuButton.querySelector('i');
+      icon.classList.toggle('fa-bars');
+      icon.classList.toggle('fa-times');
+    });
+  </script>
+
+</body>
+</html>

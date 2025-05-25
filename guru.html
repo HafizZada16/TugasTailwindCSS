@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu Guru - Kelas Online</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+  <nav class="bg-blue-600 shadow-lg">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex-shrink-0">
+          <a href="index.html" class="text-2xl font-bold text-white">
+            <i class="fas fa-graduation-cap mr-2"></i>Kelas Online
+          </a>
+        </div>
+        <div class="hidden md:block">
+            <button id="logoutBtnDesktop" class="bg-white text-blue-600 font-semibold py-2 px-4 rounded-lg shadow hover:bg-gray-200 transition duration-300 text-sm">
+                <i class="fas fa-sign-out-alt mr-1"></i> Keluar
+            </button>
+        </div>
+        <div class="md:hidden flex items-center">
+          <button id="logoutBtnMobile" class="bg-white text-blue-600 font-semibold py-1 px-3 rounded-lg shadow hover:bg-gray-200 transition duration-300 text-xs">
+            <i class="fas fa-sign-out-alt"></i> Keluar
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container mx-auto px-4 py-12 md:py-16 flex-grow">
+    <h2 class="text-3xl font-bold text-gray-800 mb-3">Halo, <span id="teacherName">Guru</span>!</h2>
+    <p class="text-gray-600 mb-10">Selamat datang di dasbor Guru. Kelola materi dan kelas Anda dari sini.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center card-hover transition duration-300">
+        <div class="text-green-500 text-5xl mb-4">
+          <i class="fas fa-file-alt"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Input Materi</h3>
+        <p class="text-gray-600 mb-4 text-sm">Tambahkan dan perbarui materi pembelajaran untuk siswa Anda.</p>
+        <a href="guru/input-materi.html" class="mt-auto bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition duration-150 ease-in-out">
+          Input Materi
+        </a>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center card-hover transition duration-300">
+        <div class="text-yellow-500 text-5xl mb-4">
+          <i class="fas fa-list-alt"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Kelola Materi</h3>
+        <p class="text-gray-600 mb-4 text-sm">Lihat, edit, atau hapus materi pembelajaran yang sudah ada.</p>
+        <a href="guru/kelola-materi.html" class="mt-auto bg-yellow-500 hover:bg-yellow-600 text-gray-800 font-semibold py-2 px-6 rounded-lg shadow-md transition duration-150 ease-in-out">
+          Buka Kelola Materi
+        </a>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center card-hover transition duration-300">
+        <div class="text-indigo-500 text-5xl mb-4">
+          <i class="fas fa-users-cog"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Kelola Kelas</h3>
+        <p class="text-gray-600 mb-4 text-sm">Atur data kelas, daftar siswa, dan pantau kemajuan belajar.</p>
+        <a href="guru/kelola-kelas.html" class="mt-auto bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition duration-150 ease-in-out">
+          Kelola Kelas
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto px-6 text-center">
+      <p class="text-gray-400">&copy; <span id="currentYearFooter"></span> Kelas Online. Hak Cipta Dilindungi.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('currentYearFooter').textContent = new Date().getFullYear();
+
+    // Placeholder for protectPage if it's defined in an external script.js
+    function protectPage(role) {
+      console.log("Attempting to protect page for role:", role);
+      const currentUserRole = sessionStorage.getItem('userRole');
+      const currentUsername = sessionStorage.getItem('username');
+
+      if (!currentUsername || currentUserRole !== role) {
+        // alert("Anda tidak memiliki akses ke halaman ini atau sesi Anda telah berakhir. Silakan login kembali.");
+        // window.location.href = "login.html"; // Assumes login.html is in the same directory as guru.html
+      }
+    }
+
+    function setupLogout() {
+      const btnDesktop = document.getElementById("logoutBtnDesktop");
+      const btnMobile = document.getElementById("logoutBtnMobile");
+      const clearSessionAndRedirect = () => {
+        sessionStorage.clear();
+        window.location.href = "login.html"; // Assumes login.html is in the same directory
+      };
+      if (btnDesktop) btnDesktop.addEventListener("click", clearSessionAndRedirect);
+      if (btnMobile) btnMobile.addEventListener("click", clearSessionAndRedirect);
+    }
+
+    function displayTeacherName() {
+      const teacherNameElement = document.getElementById("teacherName");
+      const currentUsername = sessionStorage.getItem('username');
+      if (teacherNameElement && currentUsername) {
+        // Optionally, you might want to prepend "Guru " or similar if not part of the username
+        teacherNameElement.textContent = currentUsername;
+      }
+    }
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', function() {
+      displayTeacherName();
+      setupLogout();
+
+      // Ensure protectPage is called correctly
+      if (typeof protectPage === "function") {
+         protectPage("guru");
+      } else {
+        console.warn("protectPage function not defined. Page may not be secure.");
+        // Fallback protection if protectPage is not globally available
+        // const currentUsername = sessionStorage.getItem('username');
+        // const currentUserRole = sessionStorage.getItem('userRole');
+        // if (!currentUsername || currentUserRole !== 'guru') {
+        //    window.location.href = "login.html";
+        // }
+      }
+    });
+  </script>
+</body>
+</html>

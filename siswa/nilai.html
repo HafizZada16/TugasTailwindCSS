@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nilai Siswa - Kelas Online</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    /* Custom progress bar height */
+    .progress-bar-container {
+        height: 25px; /* Corresponds to Bootstrap .progress height */
+    }
+    .progress-bar-fill {
+        height: 100%;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+  <nav class="bg-blue-600 shadow-lg">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex-shrink-0">
+          <a href="../index.html" class="text-2xl font-bold text-white">
+            <i class="fas fa-graduation-cap mr-2"></i>Kelas Online
+          </a>
+        </div>
+        <div class="hidden md:flex md:items-center md:space-x-6">
+            <a href="../siswa.html" class="text-gray-200 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Dasbor Siswa</a>
+            <a href="materi.html" class="text-gray-200 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Materi</a>
+            <a href="kuis.html" class="text-gray-200 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Kuis</a>
+        </div>
+        <div class="hidden md:block">
+            <button id="logoutBtnDesktop" class="bg-white text-blue-600 font-semibold py-2 px-4 rounded-lg shadow hover:bg-gray-200 transition duration-300 text-sm">
+                <i class="fas fa-sign-out-alt mr-1"></i> Keluar
+            </button>
+        </div>
+         <div class="md:hidden flex items-center">
+          <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white hover:bg-blue-700 focus:outline-none">
+            <span class="sr-only">Buka menu</span><i class="fas fa-bars text-xl"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+     <div class="md:hidden hidden" id="mobile-menu">
+      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <a href="../siswa.html" class="text-gray-200 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Dasbor Siswa</a>
+        <a href="materi.html" class="text-gray-200 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Materi</a>
+        <a href="kuis.html" class="text-gray-200 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Kuis</a>
+        <a href="nilai.html" class="text-yellow-300 bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Nilai</a>
+      </div>
+      <div class="pt-2 pb-3 px-2 border-t border-blue-700">
+        <button id="logoutBtnMobile" class="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-blue-700 bg-white hover:bg-gray-50">
+          Keluar
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container mx-auto px-4 py-12 md:py-16 flex-grow">
+    <h2 class="text-3xl font-bold text-center text-gray-800 mb-10">Nilai Siswa</h2>
+
+    <div class="max-w-3xl mx-auto">
+      <div class="bg-white rounded-xl shadow-xl overflow-hidden">
+        <div class="bg-blue-600 text-white p-5">
+          <h4 class="text-xl font-semibold mb-0">Rekap Nilai Kuis</h4>
+        </div>
+        <div class="p-6 space-y-4">
+          <div class="flex justify-between items-center text-gray-700">
+            <span>Nama Siswa:</span>
+            <strong id="studentName" class="text-gray-900">-</strong>
+          </div>
+
+          <div class="flex justify-between items-center text-gray-700">
+            <span>Total Kuis Diselesaikan:</span>
+            <strong id="quizCount" class="text-gray-900">0</strong>
+          </div>
+
+          <div class="mt-6">
+            <h5 class="text-lg font-semibold text-gray-800 mb-3">Detail Nilai:</h5>
+            <div id="quizResults" class="space-y-4">
+              {/* */}
+            </div>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-gray-200">
+            <h5 class="text-lg font-semibold text-gray-800 mb-2">Rata-rata Nilai Keseluruhan:</h5>
+            <div class="bg-gray-200 rounded-full progress-bar-container overflow-hidden my-2">
+              <div id="averageScoreBar" class="bg-green-500 text-xs font-medium text-green-100 text-center p-1 leading-none rounded-full progress-bar-fill" style="width: 0%">
+                {/* */}
+              </div>
+            </div>
+            <div class="text-right text-gray-700">
+              <span id="averageScoreText" class="font-semibold text-gray-900">0</span>/100
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 text-center">
+        <a href="../siswa.html" class="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-150 ease-in-out">
+          <i class="fas fa-arrow-left mr-2"></i>Kembali ke Menu Siswa
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto px-6 text-center">
+      <p class="text-gray-400">&copy; <span id="currentYearFooter"></span> Kelas Online. Hak Cipta Dilindungi.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('currentYearFooter').textContent = new Date().getFullYear();
+
+    // Fungsi protectPage dan setupLogout diasumsikan ada di script.js atau didefinisikan di sini
+    function protectPage(role) {
+      console.log("Attempting to protect page for role:", role);
+      const currentUserRole = sessionStorage.getItem('userRole');
+      const currentUsername = sessionStorage.getItem('username');
+
+      if (!currentUsername || currentUserRole !== role) {
+        // alert("Anda tidak memiliki akses ke halaman ini atau sesi Anda telah berakhir. Silakan login kembali.");
+        // window.location.href = "../login.html"; // Sesuaikan path jika perlu
+      }
+    }
+
+    function setupLogout() {
+      const btnDesktop = document.getElementById("logoutBtnDesktop");
+      const btnMobile = document.getElementById("logoutBtnMobile");
+      const clearSessionAndRedirect = () => {
+        sessionStorage.clear();
+        window.location.href = "../login.html"; // Path ke login.html dari subfolder siswa
+      };
+      if (btnDesktop) btnDesktop.addEventListener("click", clearSessionAndRedirect);
+      if (btnMobile) btnMobile.addEventListener("click", clearSessionAndRedirect);
+    }
+
+    // Mobile Menu Toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if(mobileMenuButton && mobileMenu){
+        mobileMenuButton.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+          const icon = mobileMenuButton.querySelector('i');
+          icon.classList.toggle('fa-bars');
+          icon.classList.toggle('fa-times');
+        });
+    }
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof protectPage === "function") {
+         protectPage("siswa");
+      } else {
+        console.warn("protectPage function not defined.");
+      }
+      if (typeof setupLogout === "function") {
+        setupLogout();
+      } else {
+        console.warn("setupLogout function not defined.");
+      }
+
+      const username = sessionStorage.getItem('username') || 'Siswa';
+      const studentNameEl = document.getElementById('studentName');
+      if (studentNameEl) studentNameEl.textContent = username;
+
+      const allQuizData = JSON.parse(localStorage.getItem('quizResults')) || [];
+      const quizDataForCurrentUser = allQuizData.filter(quiz => quiz.username === username);
+
+      const quizCountEl = document.getElementById('quizCount');
+      if(quizCountEl) quizCountEl.textContent = quizDataForCurrentUser.length;
+
+      let totalScoreSum = 0;
+      let totalMaxScoreSum = 0;
+      const quizResultsContainer = document.getElementById('quizResults');
+      let quizResultsHTML = '';
+
+      if (quizDataForCurrentUser.length === 0) {
+        quizResultsHTML = `
+          <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 rounded-md" role="alert">
+            <p class="font-bold">Informasi</p>
+            <p>Belum ada data nilai untuk Anda.</p>
+          </div>
+        `;
+      } else {
+        quizDataForCurrentUser.forEach((quiz, index) => {
+          totalScoreSum += quiz.score;
+          totalMaxScoreSum += quiz.maxScore;
+          const percentage = quiz.maxScore > 0 ? (quiz.score / quiz.maxScore) * 100 : 0;
+          const date = new Date(quiz.timestamp).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' });
+
+          quizResultsHTML += `
+            <div class="p-4 border border-gray-200 rounded-lg shadow-sm bg-white">
+              <div class="flex justify-between items-center mb-1">
+                <strong class="text-gray-700 text-md">${quiz.quizName || `Kuis ${index + 1}`}</strong>
+                <span class="text-xs text-gray-500">${date}</span>
+              </div>
+              <div class="bg-gray-200 rounded-full progress-bar-container overflow-hidden my-1" style="height: 20px;">
+                <div class="bg-blue-500 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full progress-bar-fill"
+                     style="width: ${percentage}%"
+                     role="progressbar"
+                     aria-valuenow="${quiz.score}"
+                     aria-valuemin="0"
+                     aria-valuemax="${quiz.maxScore}">
+                  ${quiz.score}/${quiz.maxScore}
+                </div>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      if (quizResultsContainer) quizResultsContainer.innerHTML = quizResultsHTML;
+
+      const averageScoreBarEl = document.getElementById('averageScoreBar');
+      const averageScoreTextEl = document.getElementById('averageScoreText');
+
+      if (totalMaxScoreSum > 0) {
+        const overallAveragePercentage = (totalScoreSum / totalMaxScoreSum) * 100;
+        if (averageScoreBarEl) averageScoreBarEl.style.width = `${overallAveragePercentage}%`;
+        if (averageScoreTextEl) averageScoreTextEl.textContent = Math.round(overallAveragePercentage);
+      } else {
+        if (averageScoreBarEl) averageScoreBarEl.style.width = `0%`;
+        if (averageScoreTextEl) averageScoreTextEl.textContent = `0`;
+      }
+    });
+  </script>
+</body>
+</html>
