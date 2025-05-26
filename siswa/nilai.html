@@ -221,13 +221,24 @@
       const averageScoreBarEl = document.getElementById('averageScoreBar');
       const averageScoreTextEl = document.getElementById('averageScoreText');
 
-      if (totalMaxScoreSum > 0) {
-        const overallAveragePercentage = (totalScoreSum / totalMaxScoreSum) * 100;
-        if (averageScoreBarEl) averageScoreBarEl.style.width = `${overallAveragePercentage}%`;
-        if (averageScoreTextEl) averageScoreTextEl.textContent = Math.round(overallAveragePercentage);
+      if (averageScoreBarEl && averageScoreTextEl) { // Pastikan elemen ada
+        if (totalMaxScoreSum > 0) {
+          const overallAveragePercentage = (totalScoreSum / totalMaxScoreSum) * 100;
+          averageScoreBarEl.style.width = `${overallAveragePercentage.toFixed(2)}%`; // Mengatur lebar bar
+          // Tambahkan baris ini untuk mengisi teks di dalam bar:
+          averageScoreBarEl.textContent = `${overallAveragePercentage.toFixed(0)}%`; // Menampilkan persentase bulat
+          
+          averageScoreTextEl.textContent = Math.round(overallAveragePercentage); // Ini untuk teks di bawah bar (0/100)
+        } else {
+          averageScoreBarEl.style.width = `0%`;
+          // Tambahkan baris ini juga jika ingin ada teks saat 0%
+          averageScoreBarEl.textContent = `0%`; 
+          
+          averageScoreTextEl.textContent = `0`;
+        }
       } else {
-        if (averageScoreBarEl) averageScoreBarEl.style.width = `0%`;
-        if (averageScoreTextEl) averageScoreTextEl.textContent = `0`;
+        if (!averageScoreBarEl) console.error("Elemen dengan ID 'averageScoreBar' tidak ditemukan.");
+        if (!averageScoreTextEl) console.error("Elemen dengan ID 'averageScoreText' tidak ditemukan.");
       }
     });
   </script>
